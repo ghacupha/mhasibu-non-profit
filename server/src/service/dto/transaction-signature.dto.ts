@@ -18,6 +18,9 @@ export class TransactionSignatureDTO extends BaseDTO {
     @ApiModelProperty({ description: 'moduleAffected field', required: false })
     moduleAffected: string;
 
+    @ApiModelProperty({ description: 'transactionTimeStamp field', required: false })
+    transactionTimeStamp: any;
+
     @ApiModelProperty({ type: PlaceholderDTO, isArray: true, description: 'placeholders relationship' })
     placeholders: PlaceholderDTO[];
 

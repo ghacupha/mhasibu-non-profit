@@ -8,6 +8,10 @@
     {
       "fieldName": "moduleAffected",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionTimeStamp",
+      "fieldType": "ZonedDateTime"
     }
   ],
   "relationships": [

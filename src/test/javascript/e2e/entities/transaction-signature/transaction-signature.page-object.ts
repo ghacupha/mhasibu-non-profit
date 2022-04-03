@@ -32,6 +32,7 @@ export class TransactionSignatureUpdatePage {
   idInput = element(by.id('field_id'));
   descriptionInput = element(by.id('field_description'));
   moduleAffectedInput = element(by.id('field_moduleAffected'));
+  transactionTimeStampInput = element(by.id('field_transactionTimeStamp'));
 
   placeholdersSelect = element(by.id('field_placeholders'));
   userSelect = element(by.id('field_user'));
@@ -62,6 +63,14 @@ export class TransactionSignatureUpdatePage {
 
   async getModuleAffectedInput(): Promise<string> {
     return await this.moduleAffectedInput.getAttribute('value');
+  }
+
+  async setTransactionTimeStampInput(transactionTimeStamp: string): Promise<void> {
+    await this.transactionTimeStampInput.sendKeys(transactionTimeStamp);
+  }
+
+  async getTransactionTimeStampInput(): Promise<string> {
+    return await this.transactionTimeStampInput.getAttribute('value');
   }
 
   async placeholdersSelectLastOption(): Promise<void> {

@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import * as dayjs from 'dayjs';
 
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { ITransactionSignature, TransactionSignature } from '../transaction-signature.model';
 
 import { TransactionSignatureService } from './transaction-signature.service';
@@ -11,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: ITransactionSignature;
     let expectedResult: ITransactionSignature | ITransactionSignature[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,17 +22,24 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(TransactionSignatureService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
       elemDefault = {
         id: 0,
         description: 'AAAAAAA',
         moduleAffected: 'AAAAAAA',
+        transactionTimeStamp: currentDate,
       };
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            transactionTimeStamp: currentDate.format(DATE_TIME_FORMAT),
+          },
+          elemDefault
+        );
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -42,11 +52,17 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            transactionTimeStamp: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            transactionTimeStamp: currentDate,
+          },
+          returnedFromService
+        );
 
         service.create(new TransactionSignature()).subscribe(resp => (expectedResult = resp.body));
 
@@ -61,11 +77,17 @@ describe('Service Tests', () => {
             id: 1,
             description: 'BBBBBB',
             moduleAffected: 'BBBBBB',
+            transactionTimeStamp: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            transactionTimeStamp: currentDate,
+          },
+          returnedFromService
+        );
 
         service.update(expected).subscribe(resp => (expectedResult = resp.body));
 
@@ -79,7 +101,12 @@ describe('Service Tests', () => {
 
         const returnedFromService = Object.assign(patchObject, elemDefault);
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            transactionTimeStamp: currentDate,
+          },
+          returnedFromService
+        );
 
         service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
 
@@ -94,11 +121,17 @@ describe('Service Tests', () => {
             id: 1,
             description: 'BBBBBB',
             moduleAffected: 'BBBBBB',
+            transactionTimeStamp: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            transactionTimeStamp: currentDate,
+          },
+          returnedFromService
+        );
 
         service.query().subscribe(resp => (expectedResult = resp.body));
 
@@ -145,7 +178,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique TransactionSignature to an array', () => {
-          const transactionSignatureArray: ITransactionSignature[] = [{ id: 123 }, { id: 456 }, { id: 33014 }];
+          const transactionSignatureArray: ITransactionSignature[] = [{ id: 123 }, { id: 456 }, { id: 30312 }];
           const transactionSignatureCollection: ITransactionSignature[] = [{ id: 123 }];
           expectedResult = service.addTransactionSignatureToCollectionIfMissing(
             transactionSignatureCollection,

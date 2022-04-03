@@ -35,6 +35,7 @@
           <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="moduleAffected"><span>Module Affected</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="transactionTimeStamp"><span>Transaction Time Stamp</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="user.login"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
@@ -46,6 +47,7 @@
           </td>
           <td>{{ transactionSignature.description }}</td>
           <td>{{ transactionSignature.moduleAffected }}</td>
+          <td>{{ transactionSignature.transactionTimeStamp | formatMediumDatetime }}</td>
           <td>
             {{ transactionSignature.user?.login }}
           </td>

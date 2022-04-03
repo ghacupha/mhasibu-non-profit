@@ -17,6 +17,10 @@ export class TransactionSignature extends BaseEntity {
     @Column({ name: 'module_affected', nullable: true })
     moduleAffected: string;
 
+    //@Column({ type: 'datetime', name: 'transaction_time_stamp', nullable: true })
+    @Column({ type: 'timestamptz', name: 'transaction_time_stamp', nullable: true })
+    transactionTimeStamp: any;
+
     @ManyToMany((type) => Placeholder)
     @JoinTable({
         name: 'rel_transaction_signature__placeholders',
