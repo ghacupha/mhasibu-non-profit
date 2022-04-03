@@ -94,6 +94,29 @@
             </option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_parentAccount">Parent Account</label>
+          <select
+            class="form-control"
+            id="field_parentAccount"
+            data-cy="parentAccount"
+            name="parentAccount"
+            formControlName="parentAccount"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                transactionAccountOption.id === editForm.get('parentAccount')!.value?.id
+                  ? editForm.get('parentAccount')!.value
+                  : transactionAccountOption
+              "
+              *ngFor="let transactionAccountOption of transactionAccountsSharedCollection; trackBy: trackTransactionAccountById"
+            >
+              {{ transactionAccountOption.accountName }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

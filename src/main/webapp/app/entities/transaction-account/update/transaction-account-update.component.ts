@@ -24,6 +24,7 @@ export class TransactionAccountUpdateComponent implements OnInit {
 
   transactionAccountTypesSharedCollection: ITransactionAccountType[] = [];
   placeholdersSharedCollection: IPlaceholder[] = [];
+  transactionAccountsSharedCollection: ITransactionAccount[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -32,6 +33,7 @@ export class TransactionAccountUpdateComponent implements OnInit {
     notes: [],
     transactionAccountType: [null, Validators.required],
     placeholders: [],
+    parentAccount: [],
   });
 
   constructor(
@@ -91,6 +93,10 @@ export class TransactionAccountUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackTransactionAccountById(index: number, item: ITransactionAccount): number {
+    return item.id!;
+  }
+
   getSelectedPlaceholder(option: IPlaceholder, selectedVals?: IPlaceholder[]): IPlaceholder {
     if (selectedVals) {
       for (const selectedVal of selectedVals) {
@@ -129,6 +135,7 @@ export class TransactionAccountUpdateComponent implements OnInit {
       notes: transactionAccount.notes,
       transactionAccountType: transactionAccount.transactionAccountType,
       placeholders: transactionAccount.placeholders,
+      parentAccount: transactionAccount.parentAccount,
     });
 
     this.transactionAccountTypesSharedCollection = this.transactionAccountTypeService.addTransactionAccountTypeToCollectionIfMissing(
@@ -138,6 +145,10 @@ export class TransactionAccountUpdateComponent implements OnInit {
     this.placeholdersSharedCollection = this.placeholderService.addPlaceholderToCollectionIfMissing(
       this.placeholdersSharedCollection,
       ...(transactionAccount.placeholders ?? [])
+    );
+    this.transactionAccountsSharedCollection = this.transactionAccountService.addTransactionAccountToCollectionIfMissing(
+      this.transactionAccountsSharedCollection,
+      transactionAccount.parentAccount
     );
   }
 
@@ -166,6 +177,19 @@ export class TransactionAccountUpdateComponent implements OnInit {
         )
       )
       .subscribe((placeholders: IPlaceholder[]) => (this.placeholdersSharedCollection = placeholders));
+
+    this.transactionAccountService
+      .query()
+      .pipe(map((res: HttpResponse<ITransactionAccount[]>) => res.body ?? []))
+      .pipe(
+        map((transactionAccounts: ITransactionAccount[]) =>
+          this.transactionAccountService.addTransactionAccountToCollectionIfMissing(
+            transactionAccounts,
+            this.editForm.get('parentAccount')!.value
+          )
+        )
+      )
+      .subscribe((transactionAccounts: ITransactionAccount[]) => (this.transactionAccountsSharedCollection = transactionAccounts));
   }
 
   protected createFromForm(): ITransactionAccount {
@@ -177,6 +201,7 @@ export class TransactionAccountUpdateComponent implements OnInit {
       notes: this.editForm.get(['notes'])!.value,
       transactionAccountType: this.editForm.get(['transactionAccountType'])!.value,
       placeholders: this.editForm.get(['placeholders'])!.value,
+      parentAccount: this.editForm.get(['parentAccount'])!.value,
     };
   }
 }

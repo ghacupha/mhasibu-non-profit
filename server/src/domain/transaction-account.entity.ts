@@ -30,5 +30,8 @@ export class TransactionAccount extends BaseEntity {
     })
     placeholders: Placeholder[];
 
+    @ManyToOne((type) => TransactionAccount)
+    parentAccount: TransactionAccount;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

@@ -8,6 +8,7 @@ export interface ITransactionAccount {
   notes?: string | null;
   transactionAccountType?: ITransactionAccountType;
   placeholders?: IPlaceholder[] | null;
+  parentAccount?: ITransactionAccount | null;
 }
 
 export class TransactionAccount implements ITransactionAccount {
@@ -17,7 +18,8 @@ export class TransactionAccount implements ITransactionAccount {
     public description?: string | null,
     public notes?: string | null,
     public transactionAccountType?: ITransactionAccountType,
-    public placeholders?: IPlaceholder[] | null
+    public placeholders?: IPlaceholder[] | null,
+    public parentAccount?: ITransactionAccount | null
   ) {}
 }
 

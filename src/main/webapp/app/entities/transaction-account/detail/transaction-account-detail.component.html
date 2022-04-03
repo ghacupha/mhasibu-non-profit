@@ -41,6 +41,14 @@
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
+        <dt><span>Parent Account</span></dt>
+        <dd>
+          <div *ngIf="transactionAccount.parentAccount">
+            <a [routerLink]="['/transaction-account', transactionAccount.parentAccount?.id, 'view']">{{
+              transactionAccount.parentAccount?.accountName
+            }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

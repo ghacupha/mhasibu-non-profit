@@ -36,6 +36,7 @@ export class TransactionAccountUpdatePage {
 
   transactionAccountTypeSelect = element(by.id('field_transactionAccountType'));
   placeholderSelect = element(by.id('field_placeholder'));
+  parentAccountSelect = element(by.id('field_parentAccount'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getText();
@@ -103,6 +104,22 @@ export class TransactionAccountUpdatePage {
 
   async getPlaceholderSelectedOption(): Promise<string> {
     return await this.placeholderSelect.element(by.css('option:checked')).getText();
+  }
+
+  async parentAccountSelectLastOption(): Promise<void> {
+    await this.parentAccountSelect.all(by.tagName('option')).last().click();
+  }
+
+  async parentAccountSelectOption(option: string): Promise<void> {
+    await this.parentAccountSelect.sendKeys(option);
+  }
+
+  getParentAccountSelect(): ElementFinder {
+    return this.parentAccountSelect;
+  }
+
+  async getParentAccountSelectedOption(): Promise<string> {
+    return await this.parentAccountSelect.element(by.css('option:checked')).getText();
   }
 
   async save(): Promise<void> {

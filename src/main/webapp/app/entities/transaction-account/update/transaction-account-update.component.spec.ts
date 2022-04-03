@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call TransactionAccountType query and add missing value', () => {
         const transactionAccount: ITransactionAccount = { id: 456 };
-        const transactionAccountType: ITransactionAccountType = { id: 38848 };
+        const transactionAccountType: ITransactionAccountType = { id: 84183 };
         transactionAccount.transactionAccountType = transactionAccountType;
 
-        const transactionAccountTypeCollection: ITransactionAccountType[] = [{ id: 67770 }];
+        const transactionAccountTypeCollection: ITransactionAccountType[] = [{ id: 74442 }];
         spyOn(transactionAccountTypeService, 'query').and.returnValue(of(new HttpResponse({ body: transactionAccountTypeCollection })));
         const additionalTransactionAccountTypes = [transactionAccountType];
         const expectedCollection: ITransactionAccountType[] = [...additionalTransactionAccountTypes, ...transactionAccountTypeCollection];
@@ -68,10 +68,10 @@ describe('Component Tests', () => {
 
       it('Should call Placeholder query and add missing value', () => {
         const transactionAccount: ITransactionAccount = { id: 456 };
-        const placeholders: IPlaceholder[] = [{ id: 15365 }];
+        const placeholders: IPlaceholder[] = [{ id: 58657 }];
         transactionAccount.placeholders = placeholders;
 
-        const placeholderCollection: IPlaceholder[] = [{ id: 55158 }];
+        const placeholderCollection: IPlaceholder[] = [{ id: 71276 }];
         spyOn(placeholderService, 'query').and.returnValue(of(new HttpResponse({ body: placeholderCollection })));
         const additionalPlaceholders = [...placeholders];
         const expectedCollection: IPlaceholder[] = [...additionalPlaceholders, ...placeholderCollection];
@@ -88,12 +88,36 @@ describe('Component Tests', () => {
         expect(comp.placeholdersSharedCollection).toEqual(expectedCollection);
       });
 
+      it('Should call TransactionAccount query and add missing value', () => {
+        const transactionAccount: ITransactionAccount = { id: 456 };
+        const parentAccount: ITransactionAccount = { id: 35203 };
+        transactionAccount.parentAccount = parentAccount;
+
+        const transactionAccountCollection: ITransactionAccount[] = [{ id: 50673 }];
+        spyOn(transactionAccountService, 'query').and.returnValue(of(new HttpResponse({ body: transactionAccountCollection })));
+        const additionalTransactionAccounts = [parentAccount];
+        const expectedCollection: ITransactionAccount[] = [...additionalTransactionAccounts, ...transactionAccountCollection];
+        spyOn(transactionAccountService, 'addTransactionAccountToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ transactionAccount });
+        comp.ngOnInit();
+
+        expect(transactionAccountService.query).toHaveBeenCalled();
+        expect(transactionAccountService.addTransactionAccountToCollectionIfMissing).toHaveBeenCalledWith(
+          transactionAccountCollection,
+          ...additionalTransactionAccounts
+        );
+        expect(comp.transactionAccountsSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const transactionAccount: ITransactionAccount = { id: 456 };
-        const transactionAccountType: ITransactionAccountType = { id: 21094 };
+        const transactionAccountType: ITransactionAccountType = { id: 96667 };
         transactionAccount.transactionAccountType = transactionAccountType;
-        const placeholders: IPlaceholder = { id: 78093 };
+        const placeholders: IPlaceholder = { id: 6978 };
         transactionAccount.placeholders = [placeholders];
+        const parentAccount: ITransactionAccount = { id: 57898 };
+        transactionAccount.parentAccount = parentAccount;
 
         activatedRoute.data = of({ transactionAccount });
         comp.ngOnInit();
@@ -101,6 +125,7 @@ describe('Component Tests', () => {
         expect(comp.editForm.value).toEqual(expect.objectContaining(transactionAccount));
         expect(comp.transactionAccountTypesSharedCollection).toContain(transactionAccountType);
         expect(comp.placeholdersSharedCollection).toContain(placeholders);
+        expect(comp.transactionAccountsSharedCollection).toContain(parentAccount);
       });
     });
 
@@ -181,6 +206,14 @@ describe('Component Tests', () => {
         it('Should return tracked Placeholder primary key', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackPlaceholderById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+
+      describe('trackTransactionAccountById', () => {
+        it('Should return tracked TransactionAccount primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackTransactionAccountById(0, entity);
           expect(trackResult).toEqual(entity.id);
         });
       });

@@ -8,6 +8,7 @@ import { TransactionAccountRepository } from '../repository/transaction-account.
 const relationshipNames = [];
 relationshipNames.push('transactionAccountType');
 relationshipNames.push('placeholders');
+relationshipNames.push('parentAccount');
 
 @Injectable()
 export class TransactionAccountService {

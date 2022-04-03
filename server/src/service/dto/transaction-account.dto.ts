@@ -26,5 +26,8 @@ export class TransactionAccountDTO extends BaseDTO {
     @ApiModelProperty({ type: PlaceholderDTO, isArray: true, description: 'placeholders relationship' })
     placeholders: PlaceholderDTO[];
 
+    @ApiModelProperty({ type: TransactionAccountDTO, description: 'parentAccount relationship' })
+    parentAccount: TransactionAccountDTO;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

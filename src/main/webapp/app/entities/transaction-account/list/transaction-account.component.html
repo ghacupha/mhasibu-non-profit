@@ -39,6 +39,7 @@
           <th scope="col" jhiSortBy="transactionAccountType.accountType">
             <span>Transaction Account Type</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="parentAccount.accountName"><span>Parent Account</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -54,6 +55,13 @@
             <div *ngIf="transactionAccount.transactionAccountType">
               <a [routerLink]="['/transaction-account-type', transactionAccount.transactionAccountType?.id, 'view']">{{
                 transactionAccount.transactionAccountType?.accountType
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="transactionAccount.parentAccount">
+              <a [routerLink]="['/transaction-account', transactionAccount.parentAccount?.id, 'view']">{{
+                transactionAccount.parentAccount?.accountName
               }}</a>
             </div>
           </td>

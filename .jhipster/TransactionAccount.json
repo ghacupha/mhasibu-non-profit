@@ -30,6 +30,12 @@
       "otherEntityField": "description",
       "ownerSide": true,
       "otherEntityRelationshipName": "transactionAccount"
+    },
+    {
+      "relationshipName": "parentAccount",
+      "otherEntityName": "transactionAccount",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "accountName"
     }
   ],
   "service": "serviceImpl",

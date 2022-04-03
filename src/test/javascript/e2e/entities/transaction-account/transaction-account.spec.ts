@@ -55,6 +55,7 @@ describe('TransactionAccount e2e test', () => {
             transactionAccountUpdatePage.setNotesInput('notes'),
             transactionAccountUpdatePage.transactionAccountTypeSelectLastOption(),
             // transactionAccountUpdatePage.placeholderSelectLastOption(),
+            transactionAccountUpdatePage.parentAccountSelectLastOption(),
         ]);
 
         expect(await transactionAccountUpdatePage.getAccountNameInput()).to.eq('accountName', 'Expected AccountName value to be equals to accountName');
