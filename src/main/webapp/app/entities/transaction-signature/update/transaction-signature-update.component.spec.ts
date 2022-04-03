@@ -47,10 +47,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Placeholder query and add missing value', () => {
         const transactionSignature: ITransactionSignature = { id: 456 };
-        const placeholders: IPlaceholder[] = [{ id: 55340 }];
+        const placeholders: IPlaceholder[] = [{ id: 90289 }];
         transactionSignature.placeholders = placeholders;
 
-        const placeholderCollection: IPlaceholder[] = [{ id: 81121 }];
+        const placeholderCollection: IPlaceholder[] = [{ id: 47614 }];
         spyOn(placeholderService, 'query').and.returnValue(of(new HttpResponse({ body: placeholderCollection })));
         const additionalPlaceholders = [...placeholders];
         const expectedCollection: IPlaceholder[] = [...additionalPlaceholders, ...placeholderCollection];
@@ -88,7 +88,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const transactionSignature: ITransactionSignature = { id: 456 };
-        const placeholders: IPlaceholder = { id: 47792 };
+        const placeholders: IPlaceholder = { id: 4392 };
         transactionSignature.placeholders = [placeholders];
         const user: IUser = { id: 47918 };
         transactionSignature.user = user;

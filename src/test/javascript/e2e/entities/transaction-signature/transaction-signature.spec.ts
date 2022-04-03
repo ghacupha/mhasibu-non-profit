@@ -1,4 +1,4 @@
-import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import {
@@ -52,7 +52,6 @@ describe('TransactionSignature e2e test', () => {
     await promise.all([
       transactionSignatureUpdatePage.setDescriptionInput('description'),
       transactionSignatureUpdatePage.setModuleAffectedInput('moduleAffected'),
-      transactionSignatureUpdatePage.setTransactionTimeInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       // transactionSignatureUpdatePage.placeholdersSelectLastOption(),
       transactionSignatureUpdatePage.userSelectLastOption(),
     ]);
@@ -64,10 +63,6 @@ describe('TransactionSignature e2e test', () => {
     expect(await transactionSignatureUpdatePage.getModuleAffectedInput()).to.eq(
       'moduleAffected',
       'Expected ModuleAffected value to be equals to moduleAffected'
-    );
-    expect(await transactionSignatureUpdatePage.getTransactionTimeInput()).to.contain(
-      '2001-01-01T02:30',
-      'Expected transactionTime value to be equals to 2000-12-31'
     );
 
     await transactionSignatureUpdatePage.save();

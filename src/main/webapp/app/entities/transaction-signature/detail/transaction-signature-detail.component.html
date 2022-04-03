@@ -22,10 +22,6 @@
         <dd>
           <span>{{ transactionSignature.moduleAffected }}</span>
         </dd>
-        <dt><span>Transaction Time</span></dt>
-        <dd>
-          <span>{{ transactionSignature.transactionTime | formatMediumDatetime }}</span>
-        </dd>
         <dt><span>Placeholders</span></dt>
         <dd>
           <span *ngFor="let placeholders of transactionSignature.placeholders; let last = last">

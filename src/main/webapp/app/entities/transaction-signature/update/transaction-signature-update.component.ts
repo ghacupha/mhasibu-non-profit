@@ -5,9 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import * as dayjs from 'dayjs';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-
 import { ITransactionSignature, TransactionSignature } from '../transaction-signature.model';
 import { TransactionSignatureService } from '../service/transaction-signature.service';
 import { IPlaceholder } from 'app/entities/placeholder/placeholder.model';
@@ -29,7 +26,6 @@ export class TransactionSignatureUpdateComponent implements OnInit {
     id: [],
     description: [null, [Validators.required]],
     moduleAffected: [],
-    transactionTime: [],
     placeholders: [],
     user: [],
   });
@@ -44,11 +40,6 @@ export class TransactionSignatureUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ transactionSignature }) => {
-      if (transactionSignature.id === undefined) {
-        const today = dayjs().startOf('day');
-        transactionSignature.transactionTime = today;
-      }
-
       this.updateForm(transactionSignature);
 
       this.loadRelationshipsOptions();
@@ -112,7 +103,6 @@ export class TransactionSignatureUpdateComponent implements OnInit {
       id: transactionSignature.id,
       description: transactionSignature.description,
       moduleAffected: transactionSignature.moduleAffected,
-      transactionTime: transactionSignature.transactionTime ? transactionSignature.transactionTime.format(DATE_TIME_FORMAT) : null,
       placeholders: transactionSignature.placeholders,
       user: transactionSignature.user,
     });
@@ -148,9 +138,6 @@ export class TransactionSignatureUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       description: this.editForm.get(['description'])!.value,
       moduleAffected: this.editForm.get(['moduleAffected'])!.value,
-      transactionTime: this.editForm.get(['transactionTime'])!.value
-        ? dayjs(this.editForm.get(['transactionTime'])!.value, DATE_TIME_FORMAT)
-        : undefined,
       placeholders: this.editForm.get(['placeholders'])!.value,
       user: this.editForm.get(['user'])!.value,
     };
