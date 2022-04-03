@@ -16,7 +16,7 @@ export class TransactionAccount extends BaseEntity {
     @Column({ name: 'description', nullable: true })
     description: string;
 
-    @Column({ type: 'blob', name: 'notes', nullable: true })
+    @Column({ type: 'text', name: 'notes', nullable: true })
     notes: any;
 
     @ManyToOne((type) => TransactionAccountType)
