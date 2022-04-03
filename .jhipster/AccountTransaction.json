@@ -1,0 +1,64 @@
+{
+  "fields": [
+    {
+      "fieldName": "transactionNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "particulars",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "transactionAmount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": 0
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "debitAccount",
+      "otherEntityName": "transactionAccount",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "accountName"
+    },
+    {
+      "relationshipName": "creditAccount",
+      "otherEntityName": "transactionAccount",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "accountName"
+    },
+    {
+      "relationshipName": "transactionClass",
+      "otherEntityName": "transactionClass",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "transactionClass"
+    },
+    {
+      "relationshipName": "placeholder",
+      "otherEntityName": "placeholder",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "description",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "accountTransaction"
+    }
+  ],
+  "service": "serviceImpl",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "AccountTransaction",
+  "changelogDate": "20220403181042"
+}

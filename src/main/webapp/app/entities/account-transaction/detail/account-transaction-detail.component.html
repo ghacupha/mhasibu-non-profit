@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="accountTransaction">
+      <h2 data-cy="accountTransactionDetailsHeading"><span>Account Transaction</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ accountTransaction.id }}</span>
+        </dd>
+        <dt><span>Transaction Number</span></dt>
+        <dd>
+          <span>{{ accountTransaction.transactionNumber }}</span>
+        </dd>
+        <dt><span>Transaction Date</span></dt>
+        <dd>
+          <span>{{ accountTransaction.transactionDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Particulars</span></dt>
+        <dd>
+          <span>{{ accountTransaction.particulars }}</span>
+        </dd>
+        <dt><span>Notes</span></dt>
+        <dd>
+          <span>{{ accountTransaction.notes }}</span>
+        </dd>
+        <dt><span>Transaction Amount</span></dt>
+        <dd>
+          <span>{{ accountTransaction.transactionAmount }}</span>
+        </dd>
+        <dt><span>Debit Account</span></dt>
+        <dd>
+          <div *ngIf="accountTransaction.debitAccount">
+            <a [routerLink]="['/transaction-account', accountTransaction.debitAccount?.id, 'view']">{{
+              accountTransaction.debitAccount?.accountName
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Credit Account</span></dt>
+        <dd>
+          <div *ngIf="accountTransaction.creditAccount">
+            <a [routerLink]="['/transaction-account', accountTransaction.creditAccount?.id, 'view']">{{
+              accountTransaction.creditAccount?.accountName
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Transaction Class</span></dt>
+        <dd>
+          <div *ngIf="accountTransaction.transactionClass">
+            <a [routerLink]="['/transaction-class', accountTransaction.transactionClass?.id, 'view']">{{
+              accountTransaction.transactionClass?.transactionClass
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Placeholder</span></dt>
+        <dd>
+          <span *ngFor="let placeholder of accountTransaction.placeholders; let last = last">
+            <a [routerLink]="['/placeholder', placeholder?.id, 'view']">{{ placeholder.description }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/account-transaction', accountTransaction.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
