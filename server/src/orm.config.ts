@@ -26,9 +26,9 @@ function ormConfig(): TypeOrmModuleOptions {
     let ormconfig: TypeOrmModuleOptions = {
       name: 'default',
       type: 'postgres',
-      database: process.env.DATABASE_DEV_ID,
-      host: process.env.DATABASE_DEV_HOST,
-      port: Number(process.env.DATABASE_DEV_PORT),
+      database: process.env.DATABASE_DEV_ID, // mhasibuNPDev
+      host: process.env.DATABASE_DEV_HOST, // local
+      port: Number(process.env.DATABASE_DEV_PORT), // 5432
       username: process.env.PG_DATABASE_DEV_USER,
       password: process.env.PG_DATABASE_DEV_PASSWORD,
       logging: true,
