@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 function ormConfig(): TypeOrmModuleOptions {
     const commonConf = {
-        SYNCRONIZE: false,
+        SYNCRONIZE: true,
         ENTITIES: [__dirname + '/domain/*.entity{.ts,.js}'],
         MIGRATIONS: [__dirname + '/migrations/**/*{.ts,.js}'],
         CLI: {
@@ -27,10 +27,10 @@ function ormConfig(): TypeOrmModuleOptions {
       name: 'default',
       type: 'postgres',
       database: process.env.DATABASE_DEV_ID,
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'greywarren',
+      host: process.env.DATABASE_DEV_HOST,
+      port: Number(process.env.DATABASE_DEV_PORT),
+      username: process.env.PG_DATABASE_DEV_USER,
+      password: process.env.PG_DATABASE_DEV_PASSWORD,
       logging: true,
       synchronize: commonConf.SYNCRONIZE,
       entities: commonConf.ENTITIES,
