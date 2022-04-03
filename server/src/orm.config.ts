@@ -11,7 +11,7 @@ function ormConfig(): TypeOrmModuleOptions {
         MIGRATIONS_RUN: true,
     };
 
-    let ormconfig: TypeOrmModuleOptions = {
+    /*let ormconfig: TypeOrmModuleOptions = {
         name: 'default',
         type: 'sqlite',
         database: '../target/db/sqlite-dev-db.sql',
@@ -21,6 +21,22 @@ function ormConfig(): TypeOrmModuleOptions {
         migrations: commonConf.MIGRATIONS,
         cli: commonConf.CLI,
         migrationsRun: commonConf.MIGRATIONS_RUN,
+    };*/
+
+    let ormconfig: TypeOrmModuleOptions = {
+      name: 'default',
+      type: 'postgres',
+      database: process.env.DATABASE_DEV_ID,
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'greywarren',
+      logging: true,
+      synchronize: commonConf.SYNCRONIZE,
+      entities: commonConf.ENTITIES,
+      migrations: commonConf.MIGRATIONS,
+      cli: commonConf.CLI,
+      migrationsRun: commonConf.MIGRATIONS_RUN,
     };
 
     if (process.env.BACKEND_ENV === 'prod') {
