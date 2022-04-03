@@ -19,6 +19,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'TransactionAccountTypes' },
         loadChildren: () => import('./transaction-account-type/transaction-account-type.module').then(m => m.TransactionAccountTypeModule),
       },
+      {
+        path: 'transaction-account',
+        data: { pageTitle: 'TransactionAccounts' },
+        loadChildren: () => import('./transaction-account/transaction-account.module').then(m => m.TransactionAccountModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

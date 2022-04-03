@@ -50,7 +50,7 @@
     "enableHibernateCache": true,
     "reactive": false,
     "languages": ["en", "fr"],
-    "entities": ["Placeholder", "TransactionSignature", "TransactionAccountType"],
-    "lastLiquibaseTimestamp": 1648994278000
+    "entities": ["Placeholder", "TransactionSignature", "TransactionAccountType", "TransactionAccount"],
+    "lastLiquibaseTimestamp": 1648997615000
   }
 }

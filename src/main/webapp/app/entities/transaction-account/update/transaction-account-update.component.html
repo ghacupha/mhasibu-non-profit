@@ -1,0 +1,116 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-transaction-account-heading" data-cy="TransactionAccountCreateUpdateHeading">Create or edit a Transaction Account</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_accountName">Account Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="accountName"
+            id="field_accountName"
+            data-cy="accountName"
+            formControlName="accountName"
+          />
+          <div *ngIf="editForm.get('accountName')!.invalid && (editForm.get('accountName')!.dirty || editForm.get('accountName')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('accountName')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_notes">Notes</label>
+          <textarea class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_transactionAccountType">Transaction Account Type</label>
+          <select
+            class="form-control"
+            id="field_transactionAccountType"
+            data-cy="transactionAccountType"
+            name="transactionAccountType"
+            formControlName="transactionAccountType"
+          >
+            <option *ngIf="!editForm.get('transactionAccountType')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                transactionAccountTypeOption.id === editForm.get('transactionAccountType')!.value?.id
+                  ? editForm.get('transactionAccountType')!.value
+                  : transactionAccountTypeOption
+              "
+              *ngFor="let transactionAccountTypeOption of transactionAccountTypesSharedCollection; trackBy: trackTransactionAccountTypeById"
+            >
+              {{ transactionAccountTypeOption.accountType }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['transactionAccountType'])!.invalid &&
+            (editForm.get(['transactionAccountType'])!.dirty || editForm.get(['transactionAccountType'])!.touched)
+          "
+        >
+          <small class="form-text text-danger" *ngIf="editForm.get(['transactionAccountType'])?.errors?.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+          >
+            <option
+              [ngValue]="getSelectedPlaceholder(placeholderOption, editForm.get('placeholders')!.value)"
+              *ngFor="let placeholderOption of placeholdersSharedCollection; trackBy: trackPlaceholderById"
+            >
+              {{ placeholderOption.description }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
